@@ -41,7 +41,11 @@
 					<IncomingMessage v-else class="ml-7" :text="message.text" />
 				</li>
 
-				<li v-else class="self-end max-w-[80%]">
+				<li
+					v-else
+					class="self-end max-w-[80%]"
+					:class="{ 'pt-3': separateUserMessages(messages, index) }"
+				>
 					<!-- checar si mensaje anterior es del otro jugador para agregar margin adicional -->
 					<SendingMessage :text="message.text" />
 				</li>
@@ -89,6 +93,25 @@ const numberOfIncomingMessages = ref<number>(0);
 const lastBotMessageIndex = ref<number>(0);
 
 const isLastMessageMine = ref<boolean>(false);
+
+const separateUserMessages = (messages: any, index: number): boolean => {
+	// checar is no hay un elemento
+	if (!messages[index - 1]) {
+		return false;
+	}
+
+	// si no es un incoming message, no aplicar separación
+	if (messages[index - 1].isIncomingMessage === false) {
+		return false;
+	}
+
+	// si es un incoming message, sí aplicar separación
+	if (messages[index - 1].isIncomingMessage === true) {
+		return true;
+	}
+
+	return true;
+};
 
 function addMessage(text: string) {
 	const newMessage: Message = { text: text, isIncomingMessage: false };
