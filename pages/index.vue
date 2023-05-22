@@ -31,23 +31,16 @@
 
 			<template v-for="(message, index) in messages">
 				<!-- si es el ultimo mensaje del bot, poner ahi su avatar -->
-				<li class="max-w-[80%]" v-if="message.isIncomingMessage && lastBotMessageIndex === index">
-					<div class="flex">
-
+				<li class="max-w-[80%]" v-if="message.isIncomingMessage">
+					<div class="flex" v-if="lastBotMessageIndex === index">
 						<BotAvatar class="relative top-5 right-2.5" />
-						<IncomingMessage
-						class="mt-2 -ml-3"
-						:text="message.text"
-						/>
+						<IncomingMessage class="mt-2 -ml-3" :text="message.text" />
 					</div>
 
+					<!-- si es un mensaje en medio de la conversación, solo desplegar eso  -->
+					<IncomingMessage v-else class="ml-7" :text="message.text" />
 				</li>
 
-				<!-- si es un mensaje en medio de la conversación, solo desplegar eso  -->
-				<li v-else-if="message.isIncomingMessage">
-					<IncomingMessage class="ml-7" :text="message.text" />
-				</li>
-				
 				<li v-else class="self-end max-w-[80%]">
 					<!-- checar si mensaje anterior es del otro jugador para agregar margin adicional -->
 					<SendingMessage :text="message.text" />
@@ -93,24 +86,21 @@ const messages = ref<Message[]>([]);
 const numberOfMessages = ref<number>(0);
 const numberOfIncomingMessages = ref<number>(0);
 
-const lastBotMessageIndex = ref<number>(0)
-
+const lastBotMessageIndex = ref<number>(0);
 
 const isLastMessageMine = ref<boolean>(false);
 
 function addMessage(text: string) {
 	const newMessage: Message = { text: text, isIncomingMessage: false };
 	messages.value.push(newMessage);
-	numberOfMessages.value =  numberOfMessages.value + 1;
+	numberOfMessages.value = numberOfMessages.value + 1;
 
 	setTimeout(() => {
 		scrollToElement();
 	}, 100);
 
 	isLastMessageMine.value = false;
-	console.log("last bot index", lastBotMessageIndex.value)
-
-
+	console.log("last bot index", lastBotMessageIndex.value);
 }
 
 function addMessageIncoming(text: string) {
@@ -118,9 +108,10 @@ function addMessageIncoming(text: string) {
 	messages.value.push(newMessage);
 	numberOfIncomingMessages.value = numberOfIncomingMessages.value + 1;
 
-	lastBotMessageIndex.value = numberOfMessages.value + numberOfIncomingMessages.value - 1
+	lastBotMessageIndex.value =
+		numberOfMessages.value + numberOfIncomingMessages.value - 1;
 
-	console.log("last bot index", lastBotMessageIndex.value)
+	console.log("last bot index", lastBotMessageIndex.value);
 
 	setTimeout(() => {
 		scrollToElement();
