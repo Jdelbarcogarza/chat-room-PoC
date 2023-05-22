@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
 	css: ["~/assets/css/main.css"],
 	modules: ["nuxt-icon"],
+	plugins: ["~/plugins/autoAnimatePlugin.ts"],
 	postcss: {
 		plugins: {
 			tailwindcss: {},
