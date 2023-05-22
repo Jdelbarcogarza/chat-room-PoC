@@ -63,6 +63,8 @@
 			>
 
 			<InputBox class="max-w-md" @send-message="addMessage" />
+			
+			<!-- input box para probar los incoming messages -->
 			<InputBox
 				class="max-w-md bg-red-400"
 				@send-message="addMessageIncoming"
