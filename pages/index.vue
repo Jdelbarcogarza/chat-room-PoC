@@ -33,8 +33,8 @@
 				<!-- si es el ultimo mensaje del bot, poner ahi su avatar -->
 				<li class="max-w-[80%]" v-if="message.isIncomingMessage">
 					<div class="flex" v-if="lastBotMessageIndex === index">
-						<BotAvatar class="relative top-5 right-2.5" />
-						<IncomingMessage class="mt-2 -ml-3" :text="message.text" />
+						<BotAvatar class="relative top-3 right-2.5" />
+						<IncomingMessage class="-ml-3" :text="message.text" />
 					</div>
 
 					<!-- si es un mensaje en medio de la conversación, solo desplegar eso  -->
