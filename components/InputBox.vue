@@ -1,26 +1,44 @@
 <template>
 	<div class="flex bg-blue-200 items-center p-2">
-
-
 		<textarea
 			id="chat"
 			rows="1"
-      v-model="message"
-			class="block flex-grow  p-2.5 w-full text-sm text-gray-900 bg-white rounded-full border border-gray-300 
-      focus:ring-blue-500 focus:border-blue-500 resize-none h-auto"
+			v-model="message"
+			class="block flex-grow p-2.5 w-full text-sm text-gray-900 bg-white rounded-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 resize-none h-auto"
 			placeholder="Mensaje"
 		></textarea>
 
-    
-    
-    <button type="submit" class="inline-flex justify-center p-2 ml-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100">
-      <Icon name="ic:round-send" size="24" class="" />
-            <!-- <svg aria-hidden="true" class="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg> -->
-            <span class="sr-only">Send message</span>
-        </button>
+		<!-- Icono viene de: https://icones.js.org/collection/ic?s=send -->
+		<button
+			type="submit"
+      @click="sendMessage()"
+			class="inline-flex justify-center p-2 ml-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100"
+		>
+			<Icon name="ic:round-send" size="24" class="" />
+			<span class="sr-only">Send message</span>
+		</button>
 	</div>
 </template>
 
 <script setup lang="ts">
 const message = ref<string>();
+
+const emit = defineEmits<{
+  (event: "sendMessage", text: string): void 
+}>()
+
+async function sendMessage() {
+  
+  // validar que si se tenga un mensaje en el text box.
+  if (!message.value) {
+    return
+  }
+  console.log(message.value);
+  emit("sendMessage", message.value)
+
+  // clear state.
+  message.value = ""
+
+}
+
 </script>
