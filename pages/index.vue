@@ -2,7 +2,12 @@
 	<!-- contenedor del chat -->
 	<div class="min-w-sm max-w-md bg-orange-200 h-96 overflow-y-auto">
 		<!-- chat -->
-		<ul class="flex flex-col p-2" ref="ul" v-auto-animate>
+		<ul
+			class="flex flex-col p-2"
+			:ref="ul"
+			id="chatList"
+			
+		>
 			<!-- <ChatComponent :chat="messages" /> -->
 			<template v-for="message in messages">
 				<li v-if="message.isIncomingMessage">
@@ -38,21 +43,33 @@
 import { Message } from "~/types/Message.type";
 
 // SCROLL INTO VIEW
+const ul = ref();
+
+function scrollToElement() {
+	ul.value?.(false);
+	let element = document.getElementById("chatList")
+	element?.scrollIntoView(false)
+}
+
 
 const messages = ref<Message[]>([]);
 let numberOfMessages: number = 0;
 
 function addMessage(text: string) {
-	console.log("se agrego", text);
 	const newMessage: Message = { text: text, isIncomingMessage: false };
 	messages.value.push(newMessage);
 	numberOfMessages++;
+	
+	setTimeout(() => {
+
+		scrollToElement();
+	}, 1000)
 }
 
 function addMessageIncoming(text: string) {
-	console.log("se agrego", text);
 	const newMessage: Message = { text: text, isIncomingMessage: true };
 	messages.value.push(newMessage);
 	numberOfMessages++;
+ // no se agrega si llega un mensaje nuevo
 }
 </script>
