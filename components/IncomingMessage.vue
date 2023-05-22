@@ -1,9 +1,9 @@
 <template>
-	<li
+	<div
 		class="bg-incomingMsgGreen py-1 px-3 rounded-xl rounded-bl w-fit text-white font-medium"
 	>
 		<p>{{ props.text }}</p>
-</li>
+</div>
 </template>
 <script setup lang="ts">
 const props = defineProps<{
