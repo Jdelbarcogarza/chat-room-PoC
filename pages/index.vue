@@ -45,7 +45,7 @@
 
 				<!-- si es un mensaje en medio de la conversación, solo desplegar eso  -->
 				<li v-else-if="message.isIncomingMessage">
-					<IncomingMessage :text="message.text" />
+					<IncomingMessage class="ml-7" :text="message.text" />
 				</li>
 				
 				<li v-else class="self-end max-w-[80%]">
