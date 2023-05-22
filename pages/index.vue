@@ -1,27 +1,28 @@
 <template>
 	<!-- contenedor del chat -->
-	<div class="min-w-sm max-w-md bg- white h-96 overflow-y-auto">
-		<!-- chat -->
-		<ul class="flex flex-col p-2" id="chatList">
-			<!-- <ChatComponent :chat="messages" /> -->
+	<div class="h-screen border">
+		<div class="min-w-sm max-w-md bg-white h-[90%] overflow-y-auto">
+			<!-- chat -->
+			<ul class="flex flex-col p-2" id="chatList">
+				<IncomingMessage class="ml-7" text="Hola! Bienvenid@ a DmX" />
+				<IncomingMessage class="ml-7" text="¿En qué podemos ayudarte?" />
 
-			<IncomingMessage text="Hola que onda" />
-			<SendingMessage class="self-end mt-2" text="nada todo bien" />
-			<IncomingMessage
-				class="mt-3"
-				text="que bueno, yo ando haciendo el testing"
-			/>
-			<SendingMessage
-				class="mt-3 self-end"
-				text="que padre!! Yo tambien ando probando cosas"
-			/>
-			<SendingMessage
-				class="self-end"
-				text="quiero que funcione bien por eso"
-			/>
+				<SendingMessage class="self-end mt-2" text="Hola! Estoy buscando asesorarme en..." />
+				<IncomingMessage
+					class="mt-3"
+					text="que bueno, yo ando haciendo el testing"
+				/>
+				<SendingMessage
+					class="mt-3 self-end"
+					text="que padre!! Yo tambien ando probando cosas"
+				/>
+				<SendingMessage
+					class="self-end"
+					text="quiero que funcione bien por eso"
+				/>
 
-			<!-- asi es como deben de ir acomodados el avatar y el mensaje -->
-			<!-- <div class="flex">
+				<!-- asi es como deben de ir acomodados el avatar y el mensaje -->
+				<!-- <div class="flex">
 				<BotAvatar class="relative top-5 right-2.5" />
 				<IncomingMessage
 					class="mt-2 -ml-3"
@@ -29,46 +30,43 @@
 				/>
 			</div> -->
 
-			<template v-for="(message, index) in messages">
-				<!-- si es el ultimo mensaje del bot, poner ahi su avatar -->
-				<li class="max-w-[80%]" v-if="message.isIncomingMessage">
-					<div class="flex" v-if="lastBotMessageIndex === index">
-						<BotAvatar class="relative top-3 right-2.5" />
-						<IncomingMessage class="-ml-3" :text="message.text" />
-					</div>
+				<template v-for="(message, index) in messages">
+					<!-- si es el ultimo mensaje del bot, poner ahi su avatar -->
+					<li class="max-w-[80%]" v-if="message.isIncomingMessage">
+						<div class="flex" v-if="lastBotMessageIndex === index">
+							<BotAvatar class="relative top-3 right-2.5" />
+							<IncomingMessage class="-ml-3" :text="message.text" />
+						</div>
 
-					<!-- si es un mensaje en medio de la conversación, solo desplegar eso  -->
-					<IncomingMessage v-else class="ml-7" :text="message.text" />
-				</li>
+						<!-- si es un mensaje en medio de la conversación, solo desplegar eso  -->
+						<IncomingMessage v-else class="ml-7" :text="message.text" />
+					</li>
 
-				<li
-					v-else
-					class="self-end max-w-[80%]"
-					:class="{ 'pt-3': separateUserMessages(messages, index) }"
-				>
-					<!-- checar si mensaje anterior es del otro jugador para agregar margin adicional -->
-					<SendingMessage :text="message.text" />
-				</li>
-			</template>
-		</ul>
-		<TypingBubble :is-typing="false" />
-	</div>
+					<li
+						v-else
+						class="self-end max-w-[80%]"
+						:class="{ 'pt-3': separateUserMessages(messages, index) }"
+					>
+						<!-- checar si mensaje anterior es del otro jugador para agregar margin adicional -->
+						<SendingMessage :text="message.text" />
+					</li>
+				</template>
+			</ul>
+			<TypingBubble :is-typing="false" />
+		</div>
 
-	<div>
-		<div class="mb-6">
-			<label
-				for="default-input"
-				class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-				>Default input</label
-			>
+		<!-- controls -->
+		<div class="h-[10%]">
+			<div class="h-full">
 
-			<InputBox class="max-w-md" @send-message="addMessage" />
-			
-			<!-- input box para probar los incoming messages -->
-			<InputBox
-				class="max-w-md bg-red-400"
-				@send-message="addMessageIncoming"
-			/>
+				<InputBox class="max-w-md h-full" @send-message="addMessage" />
+
+				<!-- input box para probar los incoming messages -->
+				<InputBox
+					class="max-w-md bg-red-400"
+					@send-message="addMessageIncoming"
+				/>
+			</div>
 		</div>
 	</div>
 </template>
