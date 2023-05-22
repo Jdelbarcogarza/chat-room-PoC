@@ -2,13 +2,16 @@
 	<!-- contenedor del chat -->
 	<div class="min-w-sm max-w-md bg-orange-200 h-96 overflow-y-auto">
 		<!-- chat -->
-		<ul
-			class="flex flex-col p-2"
-			:ref="ul"
-			id="chatList"
-			
-		>
+		<ul class="flex flex-col p-2" :ref="ul" id="chatList">
 			<!-- <ChatComponent :chat="messages" /> -->
+
+			<IncomingMessage text="Hola que onda" />
+			<SendingMessage class="self-end" text="nada todo bien" />
+			<IncomingMessage text="que bueno, yo ando haciendo el testing" />
+			<SendingMessage class="self-end" text="que padre!! Yo tambien ando probando cosas" />
+			<SendingMessage class="self-end" text="quiero que funcione bien por eso" />
+			<IncomingMessage text="si va a salir, hemos trabajado duro" />
+
 			<template v-for="message in messages">
 				<li v-if="message.isIncomingMessage">
 					<IncomingMessage :text="message.text" />
@@ -19,7 +22,7 @@
 				</li>
 			</template>
 		</ul>
-		<TypingBubble :is-typing="true" />
+		<TypingBubble :is-typing="false" />
 	</div>
 
 	<div>
@@ -47,10 +50,9 @@ const ul = ref();
 
 function scrollToElement() {
 	ul.value?.(false);
-	let element = document.getElementById("chatList")
-	element?.scrollIntoView(false)
+	let element = document.getElementById("chatList");
+	element?.scrollIntoView({behavior: "smooth", block: "end"});
 }
-
 
 const messages = ref<Message[]>([]);
 let numberOfMessages: number = 0;
@@ -59,17 +61,19 @@ function addMessage(text: string) {
 	const newMessage: Message = { text: text, isIncomingMessage: false };
 	messages.value.push(newMessage);
 	numberOfMessages++;
-	
-	setTimeout(() => {
 
+	setTimeout(() => {
 		scrollToElement();
-	}, 1000)
+	}, 100);
 }
 
 function addMessageIncoming(text: string) {
 	const newMessage: Message = { text: text, isIncomingMessage: true };
 	messages.value.push(newMessage);
 	numberOfMessages++;
- // no se agrega si llega un mensaje nuevo
+
+	setTimeout(() => {
+		scrollToElement();
+	}, 100);
 }
 </script>
