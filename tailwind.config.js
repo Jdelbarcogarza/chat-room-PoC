@@ -12,8 +12,8 @@ module.exports = {
     extend: {
 
       colors: {
-        "incomingMsgGreen": "#63a532",
-        "sendingMsgGray": "#78716c"
+        "incomingMsgGreen": "#18253E",
+        "sendingMsgGray": "#63a532"
       }
     }
   },
