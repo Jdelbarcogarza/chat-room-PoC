@@ -2,10 +2,17 @@
 	<!-- contenedor del chat -->
 	<div class="min-w-sm max-w-md bg-orange-200 h-96 overflow-y-auto">
 		<!-- chat -->
-		<ul class="flex flex-col p-2" v-for="message in messages" ref="ul">
-			<IncomingMessage :text="message.text" v-if="message.isIncomingMessage" />
+		<ul class="flex flex-col p-2" ref="ul" v-auto-animate>
+			<!-- <ChatComponent :chat="messages" /> -->
+			<template v-for="message in messages">
+				<li v-if="message.isIncomingMessage">
+					<IncomingMessage :text="message.text" />
+				</li>
 
-			<SendingMessage v-else :text="message.text"/>
+				<li v-else class="self-end">
+					<SendingMessage :text="message.text" />
+				</li>
+			</template>
 		</ul>
 		<TypingBubble :is-typing="true" />
 	</div>
@@ -28,14 +35,9 @@
 </template>
 
 <script setup lang="ts">
-type Message = {
-	text: string;
-	isIncomingMessage: boolean;
-};
-
+import { Message } from "~/types/Message.type";
 
 // SCROLL INTO VIEW
-
 
 const messages = ref<Message[]>([]);
 let numberOfMessages: number = 0;
@@ -52,6 +54,5 @@ function addMessageIncoming(text: string) {
 	const newMessage: Message = { text: text, isIncomingMessage: true };
 	messages.value.push(newMessage);
 	numberOfMessages++;
-
 }
 </script>
