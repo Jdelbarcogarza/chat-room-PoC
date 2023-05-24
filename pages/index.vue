@@ -4,7 +4,7 @@
 		<div class="min-w-sm max-w-md bg-white h-[90%] overflow-y-auto">
 			<!-- chat -->
 			<ul class="flex flex-col p-2" id="chatList">
-				<IncomingMessage class="ml-7" text="Hola! Bienvenid@ a DmX" />
+				<!-- <IncomingMessage class="ml-7" text="Hola! Bienvenid@ a DmX" />
 				<IncomingMessage class="ml-7" text="¿En qué podemos ayudarte?" />
 
 				<SendingMessage
@@ -22,7 +22,7 @@
 				<SendingMessage
 					class="self-end"
 					text="quiero que funcione bien por eso"
-				/>
+				/> -->
 
 				<!-- asi es como deben de ir acomodados el avatar y el mensaje -->
 				<!-- <div class="flex">
@@ -87,6 +87,7 @@ onMounted(async () => {
 		},
 	});
 
+	addMessageIncoming(req.data.BotAns)
 	console.log(req.data)
 });
 
