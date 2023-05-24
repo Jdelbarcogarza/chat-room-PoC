@@ -1,11 +1,13 @@
 <template>
-	<form @submit.prevent="sendMessage()" class="flex bg-incomingMsgGreen items-center p-2">
+	<form
+		@submit.prevent="sendMessage()"
+		class="flex bg-incomingMsgGreen items-center p-2"
+	>
 		<input
 			id="chat"
 			v-model="message"
 			type="text"
-			class="block flex-grow p-2.5 w-full text-sm text-gray-900 bg-white
-			rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+			class="block flex-grow p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
 			placeholder="Mensaje"
 		/>
 
@@ -21,20 +23,31 @@
 </template>
 
 <script setup lang="ts">
-const message = ref<string>();
+import axios from "axios";
 
 const emit = defineEmits<{
 	(event: "sendMessage", text: string): void;
 }>();
 
-async function sendMessage() {
+const message = ref<string>();
+const config = useRuntimeConfig();
 
+async function sendMessage() {
 	// validar que si se tenga un mensaje en el text box.
 	if (!message.value) {
 		return;
 	}
 	console.log(message.value);
 	emit("sendMessage", message.value);
+
+	const req = await axios.get(config.public.apiBase, {
+		params: {
+			Input: message.value,
+		},
+	});
+
+	console.log(req.data);
+
 
 	// clear state.
 	message.value = "";
