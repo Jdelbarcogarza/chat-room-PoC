@@ -7,7 +7,10 @@
 				<IncomingMessage class="ml-7" text="Hola! Bienvenid@ a DmX" />
 				<IncomingMessage class="ml-7" text="¿En qué podemos ayudarte?" />
 
-				<SendingMessage class="self-end mt-2" text="Hola! Estoy buscando asesorarme en..." />
+				<SendingMessage
+					class="self-end mt-2"
+					text="Hola! Estoy buscando asesorarme en..."
+				/>
 				<IncomingMessage
 					class="mt-3"
 					text="que bueno, yo ando haciendo el testing"
@@ -58,7 +61,6 @@
 		<!-- controls -->
 		<div class="h-[10%]">
 			<div class="h-full">
-
 				<InputBox class="max-w-md h-full" @send-message="addMessage" />
 
 				<!-- input box para probar los incoming messages -->
@@ -73,13 +75,20 @@
 
 <script setup lang="ts">
 import { Message } from "~/types/Message.type";
+import axios from "axios";
 
-/* TODO: Detectar cuando el último mensaje es del otro "jugador"
-para agregar padding adicional. 
+const config = useRuntimeConfig();
 
-Mensajes continuos del mismo jugador tienen margin de mt-0.5.
-Mensajes de jugador A y jugadorB tienen más margin.
-*/
+// cuando el chat inicia, se hace el query inicial
+onMounted(async () => {
+	const req = await axios.get(config.public.apiBase, {
+		params: {
+			Input: "Inicio_chat",
+		},
+	});
+
+	console.log(req.data)
+});
 
 function scrollToElement() {
 	let element = document.getElementById("chatList");
