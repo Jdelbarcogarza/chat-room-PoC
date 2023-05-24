@@ -9,4 +9,10 @@ export default defineNuxtConfig({
 			autoprefixer: {},
 		},
 	},
+	
+	runtimeConfig: {
+		public: {
+			apiBase: process.env.BASE_CHAT_API,
+		},
+	},
 });
