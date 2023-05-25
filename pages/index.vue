@@ -1,6 +1,6 @@
 <template>
 	<!-- contenedor del chat -->
-	<div class="h-screen border">
+	<div class="absolute inset-0 border">
 		<div class="min-w-sm max-w-md bg-white h-[90%] overflow-y-auto">
 			<!-- chat -->
 			<ul class="flex flex-col p-2" id="chatList">
