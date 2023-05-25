@@ -81,9 +81,11 @@ const config = useRuntimeConfig();
 
 // cuando el chat inicia, se hace el query inicial
 onMounted(async () => {
+
+	// Chat_Inicia PARA REINICIAR FLUJO
 	const req = await axios.get(config.public.apiBase, {
 		params: {
-			Input: "Inicio_chat",
+			Input: "Chat_Inicia", 
 		},
 	});
 
