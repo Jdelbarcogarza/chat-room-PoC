@@ -64,10 +64,10 @@
 				<InputBox class="max-w-md h-full" @send-message="addMessage" />
 
 				<!-- input box para probar los incoming messages -->
-				<InputBox
+				<!-- <InputBox
 					class="max-w-md bg-red-400"
 					@send-message="addMessageIncoming"
-				/>
+				/> -->
 			</div>
 		</div>
 	</div>
