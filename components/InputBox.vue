@@ -40,16 +40,22 @@ async function sendMessage() {
 	console.log(message.value);
 	emit("sendMessage", message.value);
 
-	const req = await axios.get(config.public.apiBase, {
-		params: {
-			Input: message.value,
-		},
-	});
-
-	console.log(req.data);
-
+	// set api message content
+	const messageContent = message.value
 
 	// clear state.
-	message.value = "";
+	message.value = ""
+	
+
+	const req = await axios
+		.get(config.public.apiBase, {
+			params: {
+				Input: messageContent,
+			},
+		})
+
+		console.log(req.data);
+
+		
 }
 </script>
