@@ -1,6 +1,6 @@
 <template>
 	<!-- contenedor del chat -->
-	<div class="absolute inset-0 border min-w-sm max-w-3xl">
+	<div class="absolute inset-0 border min-w-sm max-w-screen">
 		<div class=" bg-white h-[90%] overflow-y-auto">
 			<!-- chat -->
 			<ul class="flex flex-col p-2" id="chatList">
@@ -85,7 +85,7 @@ onMounted(async () => {
 	// Chat_Inicia PARA REINICIAR FLUJO
 	const req = await axios.get(config.public.apiBase, {
 		params: {
-			Input: "Chat_Inicia", 
+			Input: "Chat_inicia", 
 		},
 	});
 
