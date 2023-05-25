@@ -123,20 +123,10 @@ const separateUserMessages = (messages: any, index: number): boolean => {
 	return true;
 };
 
-function addMessage(text: string) {
-	const newMessage: Message = { text: text, isIncomingMessage: false };
-	messages.value.push(newMessage);
-	numberOfMessages.value = numberOfMessages.value + 1;
+async function addMessageIncoming(text: string) {
 
-	setTimeout(() => {
-		scrollToElement();
-	}, 100);
 
-	isLastMessageMine.value = false;
-	console.log("last bot index", lastBotMessageIndex.value);
-}
 
-function addMessageIncoming(text: string) {
 	const newMessage: Message = { text: text, isIncomingMessage: true };
 	messages.value.push(newMessage);
 	numberOfIncomingMessages.value = numberOfIncomingMessages.value + 1;
@@ -152,4 +142,37 @@ function addMessageIncoming(text: string) {
 
 	isLastMessageMine.value = true;
 }
+
+/**
+ * 
+ * @param text El texto que puso el usuario en el text box
+ */
+async function addMessage(text: string) {
+
+ // make request. La respuesta es la respuesta del bot
+ const req = await axios
+		.get(config.public.apiBase, {
+			params: {
+				Input: text,
+			},
+		})
+
+	const newMessage: Message = { text: text, isIncomingMessage: false };
+	messages.value.push(newMessage);
+	numberOfMessages.value = numberOfMessages.value + 1;
+
+	setTimeout(() => {
+		scrollToElement();
+	}, 100);
+
+	isLastMessageMine.value = false;
+	console.log("last bot index", lastBotMessageIndex.value);
+
+
+	// get response from API
+	addMessageIncoming(req.data.BotAns)
+
+}
+
+
 </script>
