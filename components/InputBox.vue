@@ -30,7 +30,6 @@ const emit = defineEmits<{
 }>();
 
 const message = ref<string>();
-const config = useRuntimeConfig();
 
 async function sendMessage() {
 	// validar que si se tenga un mensaje en el text box.
@@ -38,24 +37,10 @@ async function sendMessage() {
 		return;
 	}
 	console.log(message.value);
+	// enviar valor del mensaje
 	emit("sendMessage", message.value);
-
-	// set api message content
-	const messageContent = message.value
 
 	// clear state.
 	message.value = ""
-	
-
-	const req = await axios
-		.get(config.public.apiBase, {
-			params: {
-				Input: messageContent,
-			},
-		})
-
-		console.log(req.data);
-
-		
 }
 </script>
