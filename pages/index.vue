@@ -1,7 +1,7 @@
 <template>
 	<!-- contenedor del chat -->
-	<div class="absolute inset-0 border">
-		<div class="min-w-sm max-w-md bg-white h-[90%] overflow-y-auto">
+	<div class="absolute inset-0 border min-w-sm max-w-3xl">
+		<div class=" bg-white h-[90%] overflow-y-auto">
 			<!-- chat -->
 			<ul class="flex flex-col p-2" id="chatList">
 				<!-- <IncomingMessage class="ml-7" text="Hola! Bienvenid@ a DmX" />
@@ -61,7 +61,7 @@
 		<!-- controls -->
 		<div class="h-[10%]">
 			<div class="h-full">
-				<InputBox class="max-w-md h-full" @send-message="addMessage" />
+				<InputBox class="h-full" @send-message="addMessage" />
 
 				<!-- input box para probar los incoming messages -->
 				<!-- <InputBox
