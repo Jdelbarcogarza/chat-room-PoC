@@ -1,4 +1,9 @@
 <template>
+
+<Head>
+	<Meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"/>
+</Head>
+
 	<!-- contenedor del chat -->
 	<div class="absolute inset-0 border min-w-sm max-w-3xl">
 		<div class=" bg-white h-[90%] overflow-y-auto">
