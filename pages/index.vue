@@ -151,6 +151,10 @@ async function addMessageIncoming(text: string) {
  */
 async function addMessage(text: string) {
 
+	const newMessage: Message = { text: text, isIncomingMessage: false };
+	messages.value.push(newMessage);
+	numberOfMessages.value = numberOfMessages.value + 1;
+
  // make request. La respuesta es la respuesta del bot
  const req = await axios
 		.get(config.public.apiBase, {
@@ -159,9 +163,7 @@ async function addMessage(text: string) {
 			},
 		})
 
-	const newMessage: Message = { text: text, isIncomingMessage: false };
-	messages.value.push(newMessage);
-	numberOfMessages.value = numberOfMessages.value + 1;
+
 
 	setTimeout(() => {
 		scrollToElement();
